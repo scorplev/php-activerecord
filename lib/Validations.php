@@ -529,7 +529,14 @@ class Validations
 		{
 			$options = array_merge($configuration, $attr);
 			$pk = $this->model->get_primary_key();
-			$pk_value = $this->model->$pk[0];
+			try
+			{
+				$pk_value = $this->model->$pk[0];
+			}
+			catch(UndefinedPropertyException $e)
+			{
+				$pk_value = null;
+			}
 
 			if ($pk_value === null)
 				$conditions = array("{$pk[0]} is not null and {$options[0]}=?",$this->model->$options[0]);
