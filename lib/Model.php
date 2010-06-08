@@ -461,7 +461,7 @@ class Model
 	 */
 	public function get_primary_key()
 	{
-		return Table::load(get_class($this))->pk;
+		return static::$primary_key ? array(static::$primary_key) : Table::load(get_class($this))->pk;                
 	}
 
 	/**
